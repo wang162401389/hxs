@@ -1,0 +1,17 @@
+<table class="table table-striped">
+	{volist name="list" id="vo"}
+        <tr>
+            <td>回答者：{$vo.author}</td>
+            <td>回答时间：{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+        </tr>
+        <tr>
+            <td colspan="2">答：{$vo.content}</td>
+        </tr>
+     {/volist}   
+</table>
+<div class="hide layer-footer">
+    <label class="control-label col-xs-12 col-sm-2"></label>
+    <div class="col-xs-12 col-sm-8">
+        <button type="reset" class="btn btn-primary btn-embossed btn-close" onclick="Layer.closeAll();">{:__('Close')}</button>
+    </div>
+</div>

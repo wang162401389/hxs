@@ -1,0 +1,127 @@
+<div class="find_loan fast_find_loan" style="min-height: 395px;">
+    <h3 class="find_loan_ti fz18">快速申请<span class="small">免费为您定制贷款方案</span></h3>
+    <form target="_blank" class="form fast_form">
+        <div class="item">
+            <div class="label fl">你的姓名：</div>
+            <input type="text" placeholder="请填写您的姓名" class="username fr"/>
+        </div>
+        <div class="item">
+            <div class="label fl">手机号码：</div>
+            <input type="text" placeholder="请填写您的手机号码" maxlength="11" class="cellphone fr"/>
+        </div>
+        <div class="item">
+            <div class="label fl">所在城市：</div>
+            <div id="city_china" class="city-picker-select fl" style="margin-left: 23px; height: 42px; overflow: hidden">
+				<select class="province" name="province" data-url="/index/Ajax/area"></select>
+				<select class="city" name="city" data-url="/index/Ajax/area"></select>
+				<select class="area district" name="area" data-url="/index/Ajax/area"></select>
+			</div>
+           <!-- <div class="city-picker-select"></div>-->
+            <!--<select class="fr">
+            	<option>城市</option>
+            </select class="fr">
+            <select>
+            	<option>省份</option>
+            </select>-->
+        </div>
+        <div class="item" style="margin-bottom: 0;">
+         <input type="checkbox" class="btn_go" checked="">
+         <p class="agree">本人已阅读并同意<a class="text_in js_agreen" href="javascript:void(0)">《瑞金金服服务协议》</a></p>
+        </div>
+        <div class="item">
+        	<a href="javascript:" class="submit_btn js_apply">申请</a>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+		$(function(){
+			$('#city_china').cxSelect({
+			    selects: ['province', 'city', 'area'],
+			    jsonSpace:'data',
+			    jsonValue:'value',
+			    jsonName: 'name'
+			});
+			var clicktag = 0;
+			layui.use('layer', function(){
+				$('.js_apply').click(function(){
+					var layer = layui.layer;
+					//提交申请
+					var nameval = $('.fast_form .username').val();
+					//var nameres = /^[\u4E00-\u9FA5]{1,5}$/.test(nameval);
+					if(!nameval){
+						layer.tips('请填写正确的姓名格式！', '.fast_form .username', {
+	                            tips: [2, '#dd2727']
+	                    })
+						return;
+					}
+					var val = $.trim($('.fast_form .cellphone').val());
+					var res =  /^0?1[0-9]\d{9}$/.test(val);
+					if(!res){
+						layer.tips('请填写正确的手机号！', '.fast_form .cellphone', {
+	                        tips: [2, '#dd2727']
+	                    })
+						return;
+					}
+					if(!$('.fast_form .city').val()){
+						layer.tips('请选择城市！', '.fast_form .city', {
+	                        tips: [2, '#dd2727']
+	                   })
+						return;
+					}
+					if(!$('.fast_form .btn_go').prop('checked')){
+						layer.tips('请勾选同意瑞金金服协议！', '.fast_form .btn_go', {
+	                        tips: [2, '#dd2727']
+	                    })
+						return;
+					}
+					else if( clicktag == "1" ){
+						layer.msg("请勿重复提交");
+						return;
+					}
+					clicktag = 1;
+
+					$.ajax({
+						url: '/index/Ajax/apply',
+						type: 'post',
+						data: {
+							"username": $('.fast_form .username').val(),
+							"cellphone": $('.fast_form .cellphone').val(),
+							"area_id": $('.fast_form .city').val()
+						},
+		                dataType: 'json',
+		                success: function(data) {
+		                	if(data.code == 1){
+		                		layer.open({
+								 	title: '申请成功',
+									content: '申请成功，若符合条件，贷款顾问将在工作时间2小时内与您联系，请保持电话通畅。',
+									btn: ['确定'],
+										yes: function(index, layero){
+											layer.close(index);
+											$(".username").val('');
+											$(".cellphone").val('');
+											$(".province").val('');
+											$(".city").val('');
+									},
+									cancel: function(){
+										$(".username").val('');
+										$(".cellphone").val('');
+										$(".province").val('');
+										$(".city").val('');
+									}
+								});   
+								$('.fast_form input, .fast_form select').val('');
+		                	}else{
+								layer.msg(data.msg);
+								return;
+		                	}
+		                },
+						complete:function(){
+							setTimeout(function(){
+								clicktag = 0;
+							},2000)
+						}
+		            })
+				});
+			})
+		})
+	</script>

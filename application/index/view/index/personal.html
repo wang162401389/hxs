@@ -1,0 +1,89 @@
+{extend name="layout/default" /}
+{block name="title"}个人贷款计算器{/block}
+{block name="content"}
+	<!--个人贷款计算器-->
+	<div class="wrapper">
+		<div class="detail_left_right cal_con clearfix">
+			<div class="cal_left fl">
+				<ul class="detail_nav">
+					<li {eq name="type" value="1"}class="current"{/eq}><a href="{:url('index/Index/calculate', ['type' => 1])}">商业贷款计算器</a></li>
+					<li {eq name="type" value="2"}class="current"{/eq}><a href="{:url('index/Index/calculate', ['type' => 2])}">提前还款计算器</a></li>
+					<li {eq name="type" value="3"}class="current"{/eq}><a href="{:url('index/Index/calculate', ['type' => 3])}">房贷担保费计算器</a></li>
+					<li {eq name="type" value="4"}class="current"{/eq}><a href="{:url('index/Index/calculate', ['type' => 4])}">个人贷款计算器</a></li>
+				</ul>
+			</div>
+			<div class="cal_right fr">
+				<h3 class="detail_right_ti">个人贷款计算器</h3>
+				<div class="clearfix ">
+					<form name="calcform">
+						<div class="ct_centop result_box">
+							<ul class="ct_cpul">
+								<li>
+									<label>贷款种类：</label>
+									<select name="borrowtype" class="select">
+										<option selected="selected" value="个人住房贷款">个人住房贷款</option>
+										<option value="个人旅游贷款">个人旅游贷款</option>
+										<option value="个人综合消费贷款">个人综合消费贷款</option>
+										<option value="个人短期信用贷款">个人短期信用贷款</option>
+										<option value="个人小额抵押贷款">个人小额抵押贷款</option>
+										<option value="个人汽车贷款">个人汽车贷款</option>
+										<option value="助学贷款">助学贷款</option>
+										<option value="个人留学贷款">个人留学贷款</option>
+										<option value="大额耐用消费品贷款">大额耐用消费品贷款</option>
+									</select>
+								</li>
+								<li>
+									<label>贷款总额：</label>
+									<input size="10" name="original" id="original" type="text">万元 
+									<span class="errorMsg"></span>
+								</li>
+								<li>
+									<label>按揭年数：</label>
+									<input size="10" name="yearSpan" id="yearSpan" type="text">年 
+									<span class="errorMsg"></span>
+								</li>
+								<li>
+									<label>还款方式：</label>等额本息
+									<select name="inputSelect" id="inputSelect" class="select" style="display:none;">
+										<option selected="selected" value="等额本息还款">等额本息还款</option>
+										<option value="等额本金还款">等额本金还款</option>
+									</select>
+									<!--<input type="radio" name="back_type2"/>等额本息
+									<input type="radio" name="back_type2"/>等额本金-->
+								</li>
+								<li>
+									<label>贷款月息：</label>
+									<input size="10" name="active" id="active" type="text">厘 
+									<span class="errorMsg"></span>
+								</li>
+								<li class="btn_li">
+									<input onclick="StartCal();" value="开始计算" type="button" class="input_btn">
+									<input value="重 置" type="reset">
+								</li>
+							</ul>
+						</div>
+					
+						<div class="ct_cpjs red "><strong>计算结果</strong></div>
+						<div class="result_box">
+							<table class="table1" border="0" cellspacing="0">
+								<tr>
+									<td class="name">月均还款</td>
+									<td><input name="monthBack" id="monthBack" class="red" type="text">元</td>
+								</tr>
+								<tr>
+									<td class="name">支付利息</td>
+									<td><input name="totalInterest" id="totalInterest" class="red" type="text">元</td>
+								</tr>
+								<tr>
+									<td class="name">还款总额</td>
+									<td><input name="totalBack" id="totalBack" class="red" type="text">元</td>
+								</tr>
+							</table>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	{js href="__CDN__/assets/js/frontend/grdk.js" /}
+{/block}

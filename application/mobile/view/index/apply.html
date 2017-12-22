@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+	    <meta name="format-detection" content="telphone=no, email=no" />
+	    <meta content="yes" name="apple-mobile-web-app-capable" />
+	    <meta content="black" name=" apple-mobile-web-app-status-bar-style" />
+	    <meta name="msapplication-tap-highlight" content="no">
+	    <title>快速申请</title>
+	    {load href="__CDN__/assets/js/frontend/jquery.js,__CDN__/assets/css/frontend/app.css,__CDN__/assets/css/frontend/LArea.css"}
+	</head>
+	<body>
+		<div class="title">
+			<i></i>
+			<span>快速申请</span>
+		</div>
+	
+		<div class="success">
+			<img src="__CDN__/assets/img/frontend/m_ok.png "/>
+			<p class="text">
+				<span class="span1">申请成功</span>
+				<span class="span3"> >> 未成功放款，不产生任何费用！ << </span>
+				<span class="span4">如符合条件，贷款顾问将在2小时内与您联系，<br> 请保持电话畅通。</span>
+				<span class="span2">
+					如需联系贷款专员，请拨打电话<br> 
+					{$Think.config.site.service_hotline}。
+				</span>
+			</p>
+			<a href="/" class="goback">返回主页</a>
+		</div>
+
+		<script type="text/javascript">
+			$(function(){
+				$('.title').click(function(){
+					window.location.href = "{:url('mobile/Index/index')}";
+				})
+			})
+		</script>
+	</body>
+</html>

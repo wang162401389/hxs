@@ -1,0 +1,51 @@
+{extend name="layout/default" /}
+{block name="title"}车抵贷{/block}
+{block name="content"}
+	{js href="__CDN__/assets/js/frontend/jquery.z-pager.js" /}
+	<!--车抵贷列表-->
+	<div class="wrapper">
+		<div class="current_location">
+			您当前的位置：<a href="/">首页</a>&nbsp;&gt;&nbsp; 车抵贷&nbsp;&gt;&nbsp;<span class="current"> 车抵贷更多</span>
+		</div>
+		<div class="part part1 house_con">			
+            <div class="condition_left fl">
+            	<div class="item_left list_item_left">
+            		<div class="xy_top">
+                    	车抵贷
+                    </div>
+                    <ul class="loan_con">
+                        <li class="active list_con">
+                        	{notempty name="list"}
+		                        {volist name="list" id="val"}
+		                            <div class="item clearfix"> 
+		                                <img src="{$val.picurl}">
+		                                <p>{$val.title}</p>
+		                                <div class="more_wrap">
+		                                    <a href="{:url('index/Car/detail', ['id' => $val['id']])}" target="_blank" class="more">查看</a>
+		                                </div>
+		                            </div>
+                            	{/volist}
+                            {/notempty}
+                        </li>
+                    </ul>	
+            	</div>
+            	<div id="pager" class="pagination"></div>
+			</div>
+            {include file="common/right" /}
+		</div>
+	</div>
+	<div style="clear: both;"></div>
+	
+	<script type="text/javascript">
+		$(function(){
+			/*
+			 **分页
+			*/
+			$('#pager').zPager({
+				btnShow: false,
+				url: '/car/more',
+				htmlBox: $('.list_con')
+			});
+		})
+	</script>
+{/block}

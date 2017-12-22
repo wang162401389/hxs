@@ -1,0 +1,22 @@
+{extend name="layout/default" /}
+{block name="title"}媒体报道{/block}
+{block name="content"}
+	<!--关于瑞金金服-->
+	<div class="about_banner">
+			<img src="__CDN__/assets/img/frontend/aboutbanner.jpg" />
+		</div>
+	<div class="wrapper">
+		<!--<div class="current_location">
+			您当前的位置：<a href="/">首页</a>&nbsp;&gt;&nbsp;<span class="current">关于瑞金金服</span>
+		</div>-->
+		<div class="detail_left_right clearfix">
+			{include file="common/about_nav" /}
+			<div class="detail_right fr">
+				<h3 class="detail_right_ti" style="margin-bottom: 14px;">{$row.title}</h3>
+				<p class="time" style="margin-bottom: 30px;">日期：{$row.createtime|date="Y-m-d H:i:s",###}</p>
+				{$row.content}
+			</div>
+		</div>
+	</div>
+	<div style="clear: both;"></div>
+{/block}

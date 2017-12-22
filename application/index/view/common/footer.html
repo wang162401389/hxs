@@ -1,0 +1,133 @@
+    <!-- 底部 -->
+    <div class="footer">
+        <div class="type_page clearfix">
+            <div class="footer_logo">
+                <a href="" target="_Blank" ><img src="https://staticcdn.zhudai.com/default/images/www.zhudai.com@V.png" style="margin:2px"></a>
+                <a href="" target="_Blank" ><img src="https://staticcdn.zhudai.com/default/images/www.zhudai.com@V.png" style="margin:2px"></a>
+                <a href="" target="_Blank" ><img src="https://staticcdn.zhudai.com/default/images/www.zhudai.com@V.png" style="margin:2px"></a>
+            </div>
+            <div class="footer_nav clearfix">
+                <a href="{:url('index/About/index')}" rel="nofollow">关于瑞金金服</a>
+                <a href="{:url('index/About/contact')}" rel="nofollow">联系我们</a>
+                <a href="{:url('index/About/joinus')}" rel="nofollow">加入我们</a>
+                <a href="{:url('index/About/disclaimer')}" rel="nofollow">免责申明</a>
+                <a href="{:url('index/About/suggest')}" rel="nofollow">建议与投诉</a>
+                <a href="{:url('index/Index/map')}" class="last" rel="nofollow">网站地图</a>
+            </div>
+            <div class="copyright tac" style="font-size:12px">
+                {$Think.config.site.company_name} Copyright © {:date('Y')}-{:date('Y') + 1} zhudai.com All Rights Reserved. <a href="https://www.miitbeian.gov.cn/" target="_blank" rel="nofollow"><span >{$Think.config.site.beian}</span></a>
+            </div>
+            <div class="information">
+                是全国领先的网络
+                等贷款业务，贷款成功率高，贷款额度可达1000万。
+            </div>
+        </div>
+    </div>
+    <!-- 返回顶部 -->
+    <div class="side">
+		<div class="side1">
+			<span>意见<br>反馈</span>
+		</div>
+		<div class="suggest">
+			<i class="js_close"></i>
+			<textarea placeholder="欢迎您对我们提出宝贵的建议（200字以内）" class="suggeat_text"></textarea><br />
+			<input type="text" placeholder="联系方式" class="cellphone" maxlength="11"/> <a href="javascript:" class="js_suggest">提交</a>
+		</div>
+		<div class="side2">
+			<span>投诉<br>热线</span>
+			<span class="tel">投诉热线：{$Think.config.site.service_hotline}<i><img src="__CDN__/assets/img/frontend/arrow.png"/></i></span>
+		</div>
+		<div class="side3 js-gotop">
+			<span></span>
+		</div>
+	</div>
+	
+	<!-- 瑞金金服协议 -->
+	<div class="protocol_alldiv">
+	    <div class="protocol">             
+	        <span class="close_btn js_pclose"></span>
+	        <div style="overflow: auto;height: 100%;">
+	        	{$Think.config.site.service_agreement}
+	        </div>
+	    </div>
+	</div>
+	
+	<script type="text/javascript">
+		//jQuery.noConflict();
+		//jQuery(document).ready(function($){ 
+		$(function(){	
+			/*查看协议*/
+			$('.js_agreen').click(function(){
+	            $('.protocol_alldiv').show();
+	            $('.protocol').show();
+	        });
+	        $('.js_pclose').click(function(){
+	            $('.protocol_alldiv').hide();
+	            $('.protocol').hide();
+	        });
+			
+			/*返回顶部*/
+        	$('.js-gotop').click(function(){
+        		$('body,html').animate({
+        			scrollTop: 0
+        		},500)
+        	})
+        	
+        	$('.side1').click(function(){
+        		$('.suggest').show();
+        	})
+        	$('.js_close').click(function(){
+        		$('.suggest').hide();
+        	})
+        	layui.use('layer', function(){
+        		var layer = layui.layer;
+	        	$('.js_suggest').click(function(){
+	        		if(!$('.suggeat_text').val()){
+						layer.tips('请填写您的建议！', '.suggeat_text', {
+	                            tips: [2, '#dd2727']
+	                    })
+						return;
+					}
+	        		if($('.suggeat_text').val().length > 200){
+						layer.tips('请输入200字以内！', '.suggeat_text', {
+	                            tips: [2, '#dd2727']
+	                    })
+						return;
+					}
+	        		var val = $.trim($('.suggest .cellphone').val());
+					var res =  /^0?1[0-9]\d{9}$/.test(val);
+					if(!res){
+						layer.tips('请填写正确的手机号！', '.suggest .cellphone', {
+	                            tips: [2, '#dd2727']
+	                   })
+						return;
+					}
+					$.ajax({
+						url: '/index/Ajax/postSuggest',
+						type: 'post',
+						data: {
+							"content": $('.suggeat_text').val(),
+							"phone": $('.suggest .cellphone').val()
+						},
+		                dataType: 'json',
+		                success: function(data) {
+		                	if(data.code == 1){
+		                		alert('提交成功');
+		                		$('.suggest').hide();
+		                	}else{
+		                		alert(data.msg);	
+		                	}
+		                }
+		            })
+	        	})
+        	})
+        	$('.side2').hover(function(){
+        		$('.tel').fadeIn();
+        	},function(){
+        		$('.tel').fadeOut();
+        	})
+	
+	    })
+	</script>
+</body>
+</html>

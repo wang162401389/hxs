@@ -1,0 +1,56 @@
+{extend name="layout/default" /}
+{block name="title"}贷款攻略{/block}
+{block name="content"}
+    {js href="__CDN__/assets/js/frontend/jquery.SuperSlide.2.1.1.js" /}
+    <style>
+    	.bd ul li img {height: 250px;}
+    	.condition_left {width: 860px; margin-left: -20px;}
+    	.small_slide{margin-left: 22px;}
+    </style>
+	<!--贷款攻略-->
+	<div class="wrapper" style="overflow: hidden;">
+    	<div class="current_location">
+			您当前的位置：<a href="/">首页</a>&nbsp;&gt;&nbsp;<span class="current">贷款攻略</span>
+		</div>
+		<div class=" house_con news_con">			
+            <div class="condition_left fl">
+            	<div class="small_slide clearfix" id="slideBox">
+		        	{include file="common/banner" /}
+            	</div>
+            	{volist name="strategy_list" id="v"}
+	            	<div class="find_loan news_con_item fl">
+	                	{notempty name="v.art_info"}
+	                		<img src="{$v.art_info.0.thumb}" class="fl"/>
+	                	{/notempty}
+	            		<div class="item_list fr">
+	            			<span style="display: block;"><a href="{:url('index/Strategy/lists', ['id' => $v['id']])}">{$v.name}</a></span>
+	            			{notempty name="v.art_info"}
+	            				{volist name="v.art_info" id="val"}
+	            					<a href="{:url('index/Strategy/detail', ['id' => $val['id']])}"><i class="dot_icon"></i>{$val.title}</a>
+            					{/volist}
+		                	{/notempty}
+	            		</div>
+	            	</div>
+            	{/volist}
+			</div>
+			
+            {include file="common/right" /}        
+		</div>
+	</div>
+	<script type="text/javascript">
+        $(function(){
+        	$(".small_slide").slide( { 
+                mainCell : ".bd ul",
+                effect : "fade",
+                autoPlay : true,
+                trigger : "mouseover",
+                easing : "swing",
+                delayTime : 1500,
+                mouseOverStop : true
+            });
+            if($(".hd ul li").length == 1){
+            	$('.hd').hide();
+            }
+        })
+    </script>
+{/block}

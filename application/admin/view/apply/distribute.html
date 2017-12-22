@@ -1,0 +1,25 @@
+<div class="content my-layer">
+    <form id="assign-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+        <div class="form-group">
+            <label for="c-profession" class="control-label col-xs-12 col-sm-2">角色组:</label>
+            <div class="col-xs-12 col-sm-8">
+                {:build_select('gid', $groupdata, null, ['class'=>'form-control selectpicker', 'data-rule'=>'required'])}
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="c-status" class="control-label col-xs-12 col-sm-2">管理员:</label>
+            <div class="col-xs-12 col-sm-8">
+                <select class="form-control" name="aid">
+                    <option value="">无</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group layer-footer">
+            <label class="control-label col-xs-12 col-sm-2"></label>
+            <div class="col-xs-12 col-sm-8">
+                <button type="submit" class="btn btn-success btn-embossed">{:__('OK')}</button>
+                <button type="reset" class="btn btn-default btn-embossed" onclick="Layer.closeAll();">{:__('Cancel')}</button>
+            </div>
+        </div>
+    </form>
+</div>

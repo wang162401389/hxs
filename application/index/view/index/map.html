@@ -1,0 +1,76 @@
+{extend name="layout/default" /}
+{block name="title"}网站地图{/block}
+{block name="content"}
+	<div class="wrapper">
+    	<div class="current_location">
+			您当前的位置：<a href="/">首页</a>&nbsp;&gt;&nbsp;<span class="current">网站地图</span>
+		</div>
+		<div class="map_con">
+			<div class="map_item">
+				<span class="name">贷款产品</span>
+				<div class="map_list">
+					<a href="{:url('index/Credit/index')}">信用贷</a>
+					<a href="{:url('index/House/index')}">房抵贷</a>
+					<a href="{:url('index/Car/index')}">车抵贷</a>
+				</div>
+			</div>
+			<div class="map_item">
+				<span class="name">贷款攻略</span>
+				<div class="map_list">
+					{volist name="list" id="v"}
+						<a href="{:url('index/Strategy/lists', ['id' => $key])}">{$v}</a>
+					{/volist}
+				</div>
+			</div>
+			<div class="map_item">
+				<span class="name">贷款问题</span>
+				<div class="map_list">
+					<a href="{:url('index/Ask/index')}">常见问题</a>
+				</div>
+			</div>
+			<div class="map_item">
+				<span class="name">关于瑞金金服</span>
+				<div class="map_list">
+					<a href="{:url('index/About/dynamic')}">企业动态</a>
+					<a href="{:url('index/About/contact')}">联系我们</a>
+					<a href="{:url('index/About/cooperation')}">商务合作</a>
+					<a href="{:url('index/About/joinus')}">加入我们</a>
+					<a href="{:url('index/About/disclaimer')}">免责声明</a>
+					<a href="{:url('index/About/suggest')}">建议与投诉</a>
+				</div>
+			</div>
+			<div class="map_item">
+				<span class="name">贷款计算器</span>
+				<div class="map_list">
+					<a href="{:url('index/Index/calculate', ['type' => 1])}">商业贷款计算器</a>
+					<a href="{:url('index/Index/calculate', ['type' => 2])}">提前贷款计算器</a>
+					<a href="{:url('index/Index/calculate', ['type' => 3])}">房贷担保计算器</a>
+					<a href="{:url('index/Index/calculate', ['type' => 4])}">个人贷款计算器</a>
+				</div>
+			</div>
+			<div class="map_item">
+				<span class="name">贷款城市</span>
+				<div class="map_list">
+					<a href="javascript:void(0);">广州贷款</a>
+					<a href="javascript:void(0);">深圳贷款</a>
+					<a href="javascript:void(0);">东莞贷款</a>
+					<a href="javascript:void(0);">佛山贷款</a>
+					<a href="javascript:void(0);">中山贷款</a>
+					<a href="javascript:void(0);">北京贷款</a>
+					<a href="javascript:void(0);">北京贷款</a>
+					<a href="javascript:void(0);">杭州贷款</a>
+					<a href="javascript:void(0);">上海贷款</a>
+					<a href="javascript:void(0);">长沙贷款</a>
+					<a href="javascript:void(0);">重庆贷款</a>
+					<a href="javascript:void(0);">天津贷款</a>
+					<a href="javascript:void(0);">成都贷款</a>
+					<a href="javascript:void(0);">武汉贷款</a>
+					<a href="javascript:void(0);">南京贷款</a>
+					<a href="javascript:void(0);">苏州贷款</a>
+					<a href="javascript:void(0);">青岛贷款</a>
+					<a href="javascript:void(0);">移动端贷款</a>
+				</div>
+			</div>
+		</div>
+	</div>
+{/block}

@@ -1,0 +1,50 @@
+<table class="table table-striped">
+	<tr>
+	    <td>姓名：</td>
+	    <td>{$row.username}</td>
+	    <td>电话号码：</td>
+	    <td>{$row.cellphone}</td>
+	</tr>
+	<tr>
+	    <td>性别：</td>
+	    <td>{$row.gender}</td>
+	    <td>地区：</td>
+	    <td>{$row.area_id}</td>
+	</tr>
+	<tr>
+	    <td>借款金额：</td>
+	    <td>{$row.borrow_money}</td>
+	    <td>年龄：</td>
+	    <td>{$row.age}</td>
+	</tr>
+	<tr>
+	    <td>是否有房：</td>
+	    <td>{$row.has_house}</td>
+	    <td>是否有车：</td>
+	    <td>{$row.has_car}</td>
+	</tr>
+	<tr>
+	    <td>职业状况：</td>
+	    <td>{$row.profession}</td>
+	    <td>用户状态:</td>
+	    <td>{$row.status}</td>
+	</tr>
+	<tr>
+	    <td colspan="4">备注历史：</td>
+	</tr>
+	{volist name="list" id="vo"}
+        <tr>
+        	<td>{$vo.author}</td>
+        	<td colspan="3">{$vo.create_time|date="Y-m-d H:i:s",###}</td>
+        </tr>
+        <tr>
+            <td colspan="4">{$vo.content}</td>
+        </tr>
+     {/volist}
+</table>
+<div class="hide layer-footer">
+    <label class="control-label col-xs-12 col-sm-2"></label>
+    <div class="col-xs-12 col-sm-8">
+        <button type="reset" class="btn btn-primary btn-embossed btn-close" onclick="Layer.closeAll();">{:__('Close')}</button>
+    </div>
+</div>

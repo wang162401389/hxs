@@ -1,0 +1,48 @@
+{extend name="layout/default" /}
+{block name="title"}媒体报道{/block}
+{block name="content"}
+	<!--关于瑞金金服-->
+	{js href="__CDN__/assets/js/frontend/jquery.z-pager5.js" /}
+	<div class="about_banner">
+			<img src="__CDN__/assets/img/frontend/aboutbanner.jpg" />
+		</div>
+	<div class="wrapper">
+	
+		<div class="detail_left_right clearfix">
+			{include file="common/about_nav" /}
+			<div class="detail_right fr">
+				<h3 class="detail_right_ti">媒体报道</h3>
+				<div class="media_list">
+					<ul>
+						<!--<li>
+							<a href="">
+								<span>2017-05-02</span>
+								<span class="wb_name">中国金融网</span>
+								<span class="atical_name">瑞金金服专注银行无抵押贷款、信用贷款</span>
+							</a>
+						</li>-->
+						
+					</ul>
+					<div id="pager" class="pagination" style="background-color: transparent;position: absolute;bottom: 0;">
+								
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div style="clear: both;"></div>
+	
+	<script type="text/javascript">
+		$(function(){
+			/*
+			 **分页
+			*/
+			$('#pager').zPager({
+				btnShow: false,
+				url: '/about/media',
+				htmlBox: $('.media_list ul')
+			});
+		})
+	</script>
+{/block}

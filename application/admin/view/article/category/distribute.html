@@ -1,0 +1,19 @@
+<div id="assign" class="content my-layer">
+    <form id="assign-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+    	{volist name="list" id="vo"}
+	        <div class="form-group">
+	            <label for="c-profession" class="control-label col-xs-12 col-sm-2" style="width:180px">{$vo.title}:</label>
+	            <div class="col-xs-12 col-sm-8">
+	                {:build_select($vo['name'], $category_list, $vo['value'], ['class'=>'form-control selectpicker', 'data-rule'=>'required'])}
+	            </div>
+	        </div>
+        {/volist}
+        <div class="form-group">
+            <label class="control-label col-xs-12 col-sm-2"></label>
+            <div class="col-xs-12 col-sm-8">
+                <button type="submit" class="btn btn-success btn-embossed">{:__('OK')}</button>
+                <button type="cancel" class="btn btn-default btn-embossed">{:__('Cancel')}</button>
+            </div>
+        </div>
+    </form>
+</div>

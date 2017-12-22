@@ -1,0 +1,18 @@
+{extend name="layout/default" /}
+{block name="title"}联系我们{/block}
+{block name="content"}
+	<!--关于瑞金金服-->
+	<div class="about_banner">
+		<img src="__CDN__/assets/img/frontend/aboutbanner.jpg" />
+	</div>
+	<div class="wrapper">
+		<div class="detail_left_right clearfix">
+			{include file="common/about_nav" /}
+			<div class="detail_right fr">
+				<h3 class="detail_right_ti">联系我们</h3>
+				{$content}
+			</div>
+		</div>
+	</div>
+	<div style="clear: both;"></div>
+{/block}

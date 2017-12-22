@@ -1,0 +1,169 @@
+{extend name="layout/default" /}
+{block name="title"}商业贷款计算器{/block}
+{block name="content"}
+	<!--商业贷款计算器-->
+	<div class="wrapper">
+		<div class="detail_left_right cal_con clearfix">
+			<div class="cal_left fl">
+				<ul>
+					<li {eq name="type" value="1"}class="current"{/eq}><a href="{:url('index/Index/calculate', ['type' => 1])}">商业贷款计算器</a></li>
+					<li {eq name="type" value="2"}class="current"{/eq}><a href="{:url('index/Index/calculate', ['type' => 2])}">提前还款计算器</a></li>
+					<li {eq name="type" value="3"}class="current"{/eq}><a href="{:url('index/Index/calculate', ['type' => 3])}">房贷担保费计算器</a></li>
+					<li {eq name="type" value="4"}class="current"{/eq}><a href="{:url('index/Index/calculate', ['type' => 4])}">个人贷款计算器</a></li>
+				</ul>
+			</div>
+			<div class="cal_right fr">
+				<h3 class="detail_right_ti">商业贷款计算器</h3>
+				<div class="calculator_explain">
+					<p>● 计算商业贷款选择等额本金和等额本息的还款方式时，每月的月供、利息总额和还款总额。</p>
+					<p>● 短期贷款一般采用一次性还本付息或者分期付息一次性还本方式，不适用于该计算器。</p>
+					<p>● 首先选择您的还款方式是等额本金还是等额本息，填写商业贷款年限、贷款金额 以及贷款实际利率；</p>
+					<p>● 选择是否显示还款明细，点击“计算”按钮获得每一期的月供金额和贷款利息总额和还款总额等详细信息。</p>
+				</div>
+				<div class="calculator_js_area">
+					<form name="calcform">
+						<div class="ct_centop">
+							<ul class="ct_cpul">
+								<li>
+									<label>还款方式：</label>
+									<input type="hidden" name="type" id="type" value="1">
+									等额本息
+									<!--<input type="radio" name="back_type"/>等额本息
+									<input type="radio" name="back_type"/>等额本金-->
+								</li>
+								<li>
+									<label>贷款年限：</label>
+									<input name="year" id="year" class="border" type="text">年
+									<span class="errorMsg"></span>
+								</li>
+								<li>
+									<label>商业贷款金额：</label>
+									<input name="amount" id="amount" class="border" type="text">万元
+									<span class="errorMsg"></span>
+								</li>
+								<li>
+									<label>商业贷款月息：</label>
+									<input name="com_rate" id="com_rate" class="border" type="text">厘
+									<span class="errorMsg"></span>
+								</li>
+								<li>
+									<label>显示还款明细：</label>
+									<select name="details" id="details" class="select">
+										<option selected="selected" value="1">是</option>
+										<option value="2">否</option>
+									</select>
+									<span class="errorMsg"></span>
+								</li>
+								<li class="btn_li">
+									<input onclick="houseLoanCalc();" value="开始计算" type="button" class="input_btn">
+									<input value="重 置" type="reset">
+								</li>
+							</ul>
+						</div>
+					</form>
+					<div class="ct_cpjs"><strong>> 计算结果</strong></div>
+					<div class="result_box">
+						<table class="table1" border="0" cellspacing="0" id="mPayments">
+							<tr>
+								<td class="name">月均还款</td>
+								<td><input class="monthly_repayment red" id="monthly_repayment" value="0">元</td>
+							</tr>
+							<tr>
+								<td class="name">支付利息</td>
+								<td><input class="tot_int red" id="tot_int" value="0">元</td>
+							</tr>
+							<tr>
+								<td class="name">还款总额</td>
+								<td><input class="tot_expenditure red" id="tot_expenditure" value="0">元</td>
+							</tr>
+						</table>
+					</div>
+					<!--<div class="ct_cpjs"><strong>> 还款明细</strong></div>-->
+					<div class="result_box">
+						<!--<table class="table2" border="0" cellspacing="0">
+							<tr>
+								<th>期次</th>
+								<th>偿还利息（￥）</th>
+								<th>偿还本金（￥）</th>
+								<th>当月月供（￥）</th>
+								<th>剩余本金（￥）</th>
+							</tr>
+							<tr>
+								<td>1期</td>
+								<td>1470.00</td>
+								<td>1842.57</td>
+								<td>3312.57</td>
+								<td>298175.43</td>
+							</tr>
+						</table>-->
+					</div>
+					
+					<div id="infos" style="display: none;"></div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+    {js href="__CDN__/assets/js/frontend/prototype.js,__CDN__/assets/js/frontend/calc_base.js,__CDN__/assets/js/frontend/calc_houseLoan.js" /}
+    <script type="text/javascript">
+		jQuery.noConflict();
+		jQuery(document).ready(function($){ 
+			
+			/*返回顶部*/
+        	$('.js-gotop').click(function(){
+        		$('body,html').animate({
+        			scrollTop: 0
+        		},500)
+        	})
+        	
+        	$('.side1').click(function(){
+        		$('.suggest').show();
+        	})
+        	$('.js_close').click(function(){
+        		$('.suggest').hide();
+        	})
+        	layui.use('layer', function(){
+        		var layer = layui.layer;
+	        	$('.js_suggest').click(function(){
+	        		if(!$('.suggeat_text').val()){
+						layer.tips('请填写您的建议！', '.suggeat_text', {
+	                            tips: [2, '#dd2727']
+	                    })
+						return;
+					}
+	        		var val = $.trim($('.suggest .cellphone').val());
+					var res =  /^0?1[0-9]\d{9}$/.test(val);
+					if(!res){
+						layer.tips('请填写正确的手机号！', '.suggest .cellphone', {
+	                            tips: [2, '#dd2727']
+	                   })
+						return;
+					}
+					$.ajax({
+						url: '/index/Ajax/postSuggest',
+						type: 'post',
+						data: {
+							"content": $('.suggeat_text').val(),
+							"phone": $('.suggest .cellphone').val()
+						},
+		                dataType: 'json',
+		                success: function(data) {
+		                	if(data.code == 1){
+		                		alert('提交成功');
+		                		$('.suggest').hide();
+		                	}else{
+		                		alert(data.msg);	
+		                	}
+		                }
+		            })
+	        	})
+        	})
+        	$('.side2').hover(function(){
+        		$('.tel').fadeIn();
+        	},function(){
+        		$('.tel').fadeOut();
+        	})
+	
+	    })
+	</script>
+{/block}

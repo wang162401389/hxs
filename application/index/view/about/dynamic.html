@@ -1,0 +1,39 @@
+{extend name="layout/default" /}
+{block name="title"}企业动态{/block}
+{block name="content"}
+	<!--关于瑞金金服-->
+	{js href="__CDN__/assets/js/frontend/jquery.z-pager6.js" /}
+	<div class="about_banner">
+			<img src="__CDN__/assets/img/frontend/aboutbanner.jpg" />
+		</div>
+	<div class="wrapper">
+		
+		<div class="detail_left_right clearfix">
+			{include file="common/about_nav" /}
+			<div class="detail_right fr">
+				<h3 class="detail_right_ti">企业动态</h3>
+				<div class="about_media">
+					
+				</div>
+				<div id="pager" class="pagination" style="background-color: transparent;position: absolute;bottom: 0;left: 0;">
+							
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div style="clear: both;"></div>
+
+	<script type="text/javascript">
+		$(function(){
+			/*
+			 **分页
+			*/
+			$('#pager').zPager({
+				btnShow: false,
+				url: '/about/dynamic',
+				htmlBox: $('.about_media')
+			});
+		})
+	</script>
+{/block}

@@ -1,0 +1,13 @@
+<div class="detail_left fl">
+	<h3 class="about_us">关于瑞金金服</h3>
+	<ul class="detail_nav">     
+		<li {eq name="config.actionname" value="index"}class="current"{/eq}><a href="{:url('index/About/index')}">公司介绍</a></li>
+		<li {in name="config.actionname" value="dynamic,dynamicdetail"}class="current"{/in}><a href="{:url('index/About/dynamic')}">企业动态</a></li>
+		<li {in name="config.actionname" value="media,mediadetail"}class="current"{/in}><a href="{:url('index/About/media')}">媒体报道</a></li>
+		<li {eq name="config.actionname" value="contact"}class="current"{/eq}><a href="{:url('index/About/contact')}">联系我们</a></li>
+		<li {eq name="config.actionname" value="cooperation"}class="current"{/eq}><a href="{:url('index/About/cooperation')}">商务合作</a></li>
+		<li {eq name="config.actionname" value="joinus"}class="current"{/eq}><a href="{:url('index/About/joinus')}">加入我们</a></li>
+		<li {eq name="config.actionname" value="disclaimer"}class="current"{/eq}><a href="{:url('index/About/disclaimer')}">免责申明</a></li>
+		<li {eq name="config.actionname" value="suggest"}class="current"{/eq}><a href="{:url('index/About/suggest')}">建议与投诉</a></li>
+	</ul>
+</div>

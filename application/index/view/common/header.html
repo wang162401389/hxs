@@ -1,0 +1,25 @@
+<!-- 头部 -->
+<div class="header">
+	<div class="top_div">
+     <div class="top">
+         <span class="fl">您好，欢迎来到瑞金金服！</span>
+         <span class="fr"><span class="span1"><i></i>贷款热线：{$Think.config.site.service_hotline}</span> <!--<a class="span2"><i></i>在线咨询</a></span>-->
+     </div>
+    </div>
+    <div style=" background-color: #fff;">
+     <div class="header_bottom">
+     	<a href="/" class="fl">
+             <img src="__CDN__/assets/img/frontend/logo.png" class="logo">
+         </a>
+         <ul class="index_nav fr">
+             <li {eq name="config.controllername" value="index"}class="active"{/eq}><a href="/">首页</a></li>
+             <li {eq name="config.controllername" value="credit"}class="active"{/eq}><a href="{:url('index/Credit/index')}">信用贷</a></li>
+             <li {eq name="config.controllername" value="house"}class="active"{/eq}><a href="{:url('index/House/index')}">房抵贷</a></li>
+             <li {eq name="config.controllername" value="car"}class="active"{/eq}><a href="{:url('index/Car/index')}">车抵贷</a></li>
+             <li {eq name="config.controllername" value="strategy"}class="active"{/eq}><a href="{:url('index/Strategy/index')}">贷款攻略</a></li>
+             <li {eq name="config.controllername" value="ask"}class="active"{/eq}><a href="{:url('index/Ask/index')}">贷款问答</a></li>
+             <li {eq name="config.controllername" value="about"}class="active"{/eq}><a href="{:url('index/About/index')}">关于瑞金金服</a></li>
+         </ul>
+     </div>
+    </div>
+</div>

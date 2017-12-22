@@ -1,0 +1,67 @@
+{extend name="layout/default" /}
+{block name="title"}房抵贷{/block}
+{block name="content"}
+	<style>
+		.condition_right .fast_find_loan{margin-top: 20px;}
+	</style>
+	<!--房抵贷详情-->
+	<div class="wrapper">
+		<div class="current_location">
+			您当前的位置：<a href="/">首页</a>&nbsp;&gt;&nbsp;<a href="/house">房抵贷</a>&nbsp;&gt;&nbsp;<span class="current">{$row.title}</span>
+		</div>
+		<div class="condition_con">
+			 <div class="condition_left condition_detail_left fl position">
+            	<div class="item top_item">
+                    <p class="tit_p">
+                    	<span class="tit_txt fl">{$row.title}</span>
+                    	<span class="pj fr">评级：<i class="star"></i></span>
+                    </p>
+                    <p class="detail_p"><i></i>额度范围： <span>{$row.limit_range}</span></p>
+                    <p class="detail_p"><i></i>贷款利息：<span>{$row.interest}</span></p>
+                    <p class="detail_p"><i></i>放款时间： <span>{$row.loan_time}</span></p> 
+                    <p class="detail_p"><i></i>贷款期限： <span>{$row.deadline_range}</span></p>
+                    <p class="detail_p"><i></i>还款方式： 
+						<span>
+							{switch name="row.repayment_type"}
+							    {case value="1"}分期还款{/case}
+							    {case value="2"}随借随还{/case}
+							    {case value="3"}定期付息，到期还本{/case}
+							{/switch}
+						</span>
+					</p>
+                </div>
+                
+                <div class="item">
+                    <p class="tit_p">
+                    	<span class="tit_txt">产品详情</span>
+                    </p>
+                    {$row.introduce}    
+                </div>
+				
+				<p class="calculator_explain">
+					* 相关信息由瑞金金服提供，不保证完全准确，请您以信贷员咨询结果为准
+				</p>
+				
+                <div class="apply">
+                	<!-- 产品说前期不显示，拿不出手
+                	<span>成功申请{$row.success_apply_count}人</span> -->
+                	<a href="javascript:" class="submit_btn js_box">免费申请</a>
+                </div>
+			</div>
+			
+            <div class="fr condition_right">
+            	<!-- 新手贷款 -->
+				{include file="common/novice_loan" /}
+				
+            	<!-- 快速申请 -->
+				{include file="common/speed_apply" /}
+				
+ 			</div>          
+		</div>
+	</div>
+	<!--弹框-->
+	{include file="common/free_apply" /}
+	
+	<div style="clear: both;"></div>
+	<input type="hidden" value="{$id}" class="loan_id"/>
+{/block}

@@ -1,0 +1,54 @@
+{extend name="layout/default" /}
+{block name="title"}贷款攻略{/block}
+{block name="content"}
+	<div class="wrapper">
+		<div class="current_location">
+			您当前的位置：<a href="/">首页</a>&nbsp;&gt;&nbsp; 贷款攻略&nbsp;&gt;&nbsp;<span class="current">{$row.category.name}</span>
+		</div>
+		<div class="part1 house_con">			
+	        <div class="condition_left str_left fl" style="padding-bottom: 0;padding-top:0;background-color: transparent;">
+	        	<div style="background-color: #fff;padding: 30px;">
+		            <p class="str_tit">{$row.title}</p>
+		            <p class="str_time">{$row.createtime_text}<span>来源：{$row.src}</span></p>
+		            <img src="{$row.image}" class="str_img"/>
+		            <p class="str_txt">{$row.content}</p>
+		        </div>
+	            <div class="tit_nav">
+	            	{notempty name="prev_next_show.prev_name"}
+	            		<a href="{$prev_next_show.prev_url}">上一条：{$prev_next_show.prev_name}</a>
+	            	{/notempty}
+	            	{notempty name="prev_next_show.next_name"}
+	            		<a href="{$prev_next_show.next_url}">下一条：{$prev_next_show.next_name}</a>
+	            	{/notempty}
+	            </div>
+			</div>
+			
+	        <div class="fr condition_right">
+	    		{include file="common/speed_apply" /}
+	    		
+	    		<div class="find_loan" style="margin-top: 25px;">
+	                <h3 class="find_loan_ti fz18">常用计算工具</h3>
+	                <ul class="calculator clearfix">
+	                    <li class="li01 fl">
+                        	<a href="{:url('index/Index/calculate', ['type' => 1])}" target="_blank"><img src="__CDN__/assets/img/frontend/cal1.png" /></a>
+                        	<a href="{:url('index/Index/calculate', ['type' => 1])}" target="_blank">商业贷款计算器</a>
+                        </li>
+                        <li class="li02 fr">
+                        	<a href="{:url('index/Index/calculate', ['type' => 2])}" target="_blank"><img src="__CDN__/assets/img/frontend/cal2.png" /></a>
+                        	<a href="{:url('index/Index/calculate', ['type' => 2])}" target="_blank">提前还贷计算器</a>
+                        </li>
+                        <li class="li03 fl">
+                        	<a href="{:url('index/Index/calculate', ['type' => 3])}" target="_blank"><img src="__CDN__/assets/img/frontend/cal3.png" /></a>
+                        	<a href="{:url('index/Index/calculate', ['type' => 3])}" target="_blank">房贷担保费计算器</a>
+                        </li>
+                        <li class="li04 fr">
+                        	<a href="{:url('index/Index/calculate', ['type' => 4])}" target="_blank"><img src="__CDN__/assets/img/frontend/cal4.png" /></a>
+                        	<a href="{:url('index/Index/calculate', ['type' => 4])}" target="_blank">个人贷款计算器</a>
+                        </li>
+	                </ul>
+	            </div>
+			</div>        
+		</div>
+	</div>
+	<div style="clear: both;"></div>
+{/block}

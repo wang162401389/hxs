@@ -1,0 +1,72 @@
+{extend name="layout/default" /}
+{block name="title"}房贷担保费计算器{/block}
+{block name="content"}
+	<!--房贷担保费计算器-->
+	<div class="wrapper">
+		<div class="detail_left_right cal_con clearfix">
+			<div class="cal_left fl">
+				<ul>
+					<li {eq name="type" value="1"}class="current"{/eq}><a href="{:url('index/Index/calculate', ['type' => 1])}">商业贷款计算器</a></li>
+					<li {eq name="type" value="2"}class="current"{/eq}><a href="{:url('index/Index/calculate', ['type' => 2])}">提前还款计算器</a></li>
+					<li {eq name="type" value="3"}class="current"{/eq}><a href="{:url('index/Index/calculate', ['type' => 3])}">房贷担保费计算器</a></li>
+					<li {eq name="type" value="4"}class="current"{/eq}><a href="{:url('index/Index/calculate', ['type' => 4])}">个人贷款计算器</a></li>
+				</ul>
+			</div>
+			<div class="cal_right fr">
+				<h3 class="detail_right_ti">房贷担保费计算器</h3>
+				<div class="calculator_explain ">
+					<p>购房需交纳的第一组税费是契税、印花税、交易手续费、权属登记费。</p>
+					<p>契税：默认按房价3%计算。实际税费根据房屋面积、房主拥有房屋套数的不同，税率有所不同</p>
+					<p>印花税：金额为房价的0.05%，在交易签证时交纳</p>
+					<p>交易手续费：一般是每平方米2.5元，也在交易签证时交纳</p>
+					<p>权属登记费：100元到200元之间</p>
+				</div>
+				<form name="calcform">
+					<div class="ct_centop">
+						<ul class="ct_cpul">
+							<li>
+								<label>单价：</label>
+								<input class="border" id="dj3" type="text" maxlength="6">元/平方米 
+								<span class="errorMsg"></span>
+							</li>
+							<li>
+								<label>面积：</label>
+								<input class="border" id="mj3" type="text">平方米 
+								<span class="errorMsg"></span>
+							</li>
+							<li class="btn_li">
+								<input onclick="calFun(this.form);" value="开始计算" type="button" class="input_btn">
+								<input value="重 置" type="reset">
+							</li>
+						</ul>
+					</div>
+				
+					<div class="ct_cpjs red "><strong>计算结果</strong></div>
+					<div class="result_box">
+						<table class="table1 cal2_table1" border="0" cellspacing="0">
+							<tr>
+								<td class="name">房款总价</td>
+								<td><input class="border" name="fkz3" type="text">元</td>
+								<td class="name">印 花 税</td>
+								<td><input class="border" name="yh" type="text">元</td>
+							</tr>
+							<tr>
+								<td class="name">公 证 费</td>
+								<td><input class="border" name="gzh" type="text">元</td>
+								<td class="name">契　　税</td>
+								<td><input class="border" name="q" type="text">元</td>
+							</tr>
+							<tr>
+								<td class="name">委托办理产权手续费</td>
+								<td><input class="border" name="wt" type="text">元</td>
+								<td class="name">房屋买卖手续费</td>
+								<td><input class="border" name="fw" type="text">元</td>
+							</tr>
+						</table>	
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	{js href="__CDN__/assets/js/frontend/fddb.js" /}
+{/block}

@@ -1,0 +1,12 @@
+<div class="fr condition_right">
+	{include file="common/speed_apply" /}
+	{notempty name="botttom_pic.value"}
+       	{volist name="botttom_pic.value" id="v"}
+       		{notempty name="v.url"}
+       			<a href="{$v.url}" target="_blank"><img src="{$v.pic}" class="ad"/></a>
+       		{else/}
+       			<img src="{$v.pic}" class="ad"/>
+       		{/notempty}
+       	{/volist}
+    {/notempty}
+</div>

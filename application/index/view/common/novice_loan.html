@@ -1,0 +1,12 @@
+{notempty name="article_list"}
+	<div class="find_loan right_news">
+		<h3 class="find_loan_ti">
+			<span>{$mod_name}</span>
+		</h3>
+		<div class="item_list">
+			{volist name="article_list" id="v" offset="0" length='8'}
+				<a href="{:url('index/Strategy/detail', ['id' => $v['id']])}"><i class="dot_icon"></i>{$v.title}</a>
+			{/volist}
+		</div>
+	</div>
+{/notempty}

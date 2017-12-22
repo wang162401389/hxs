@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+	    <meta name="format-detection" content="telphone=no, email=no" />
+	    <meta content="yes" name="apple-mobile-web-app-capable" />
+	    <meta content="black" name=" apple-mobile-web-app-status-bar-style" />
+	    <meta name="msapplication-tap-highlight" content="no">
+	    <title>首页</title>
+	    {load href="__CDN__/assets/js/frontend/jquery.js,__CDN__/assets/css/frontend/swiper.min.css,__CDN__/assets/css/frontend/LArea.css,__CDN__/assets/css/frontend/app.css"}
+	</head>
+	<body>
+		<div class="banner swiper-container">
+			<div class="swiper-wrapper">
+               	{notempty name="ad_info.value"}
+                   	{volist name="ad_info.value" id="v"}
+                   		{notempty name="v.url"}
+							<div class="swiper-slide"><a href="{$v.url}" target="_blank"><img src="{$v.pic}"></a></div>
+		      			{else/}
+		      				<div class="swiper-slide"><img src="{$v.pic}"></div>
+		      			{/notempty}
+                   	{/volist}
+               	{/notempty}
+		    </div>
+		    <!-- 如果需要分页器 -->
+		    <div class="swiper-pagination"></div>
+		</div>
+		<!-- <div class="information">
+			<a href="{:url('mobile/Index/about')}"><img  src="__CDN__/assets/img/frontend/m_banner2.png"/></a>
+		</div>
+		<div class="fast_apply">
+			<a href="{:url('mobile/Index/apply')}"><img  src="__CDN__/assets/img/frontend/m_banner3.png"/></a>
+		</div> -->
+		<div class="fast_apply">
+			<div class="apply_tit">
+				
+				<span><img src="__CDN__/assets/img/frontend/write.png" align="absmiddle">
+					20秒快速提交申请</span>
+			</div>
+			<div class="apply_form">
+				<form>
+					<div class="item">
+						<label>姓名</label>
+						<input type="text" placeholder="请输入真实姓名" class="form_input username"/>
+					</div>
+					<div class="item">
+						<label>手机号码</label>
+						<input type="text" placeholder="请输入手机号码" class="form_input cellphone" maxlength="11"/>
+					</div>
+					<div class="item">
+						<label>性别</label>
+						<select class="sex">
+							<option value="1">男</option>
+		                    <option value="0">女</option>
+						</select>
+						<i></i>
+					</div>
+					<div class="item">
+						<label>常驻城市</label>
+						<span class="span_input city" id="demo2">请选择城市</span>
+						<input id="value2" type="hidden">
+						<i></i>
+					</div>
+				</form>
+				<p class="agree">
+					<label>
+						<input type="checkbox" class="btn_go" checked />
+						<span>我已阅读并同意<a href="{:url('mobile/Index/agreement')}" class="red">《瑞金金服平台服务协议》</a></span>
+					</label>
+				</p>
+				<a href="javascript:void(0)" class="apply js_apply">提交申请</a>
+			</div>
+		</div>
+		
+	    {js href="__CDN__/assets/js/frontend/swiper.min.js,__CDN__/assets/js/frontend/LArea.js" /}
+		<script type="text/javascript">
+			var mySwiper = new Swiper ('.swiper-container', {
+				autoplay: true,
+			    loop: true,
+			    // 如果需要分页器
+			    pagination: {
+			      el: '.swiper-pagination',
+			    },
+			})    
+			$(function(){
+				var provs_data = [],
+			        citys_data = [],
+			        dists_data = [];
+			
+			    $.ajax({
+			        url: '/index/Ajax/area',
+			        type: 'get',
+			        data: {},
+			        dataType: 'json',
+			        async: false,
+			        success: function(data) {
+			            if(data.code == 1){
+			                provs_data = data.data;
+			            }else{
+			                alert(data.msg);
+			                return;
+			            }
+			        }
+			    });
+			    
+			    $.ajax({
+			        url: '/index/Ajax/area',
+			        type: 'get',
+			        data: {'province': 1},
+			        dataType: 'json',
+			        async: false,
+			        success: function(data) {
+			            if(data.code == 1){
+			                citys_data = data.data;
+			            }else{
+			                alert(data.msg);
+			                return;
+			            }
+			        }
+			    });
+				
+			    var area2 = new LArea();
+				area2.init({
+				 	'trigger': '#demo2',
+				 	'valueTo': '#value2',
+				 	'keys': {
+				 		id: 'value',
+				 		name: 'name'
+				 	},
+				 	'type': 2,
+				 	'data': [provs_data, citys_data, dists_data]
+				});
+				
+				var clicktag = 0;
+				$('.js_apply').click(function(){
+					//提交申请
+					var nameval = $('.username').val();
+					var nameres = /^[\u4E00-\u9FA5]{1,10}$/.test(nameval);
+					if(!nameres){
+						alert('请填写正确的姓名格式!');
+						return;
+					}
+					var val = $.trim($('.cellphone').val());
+					var res =  /^0?1[0-9]\d{9}$/.test(val);
+					if(!res){
+						alert('请填写正确的手机号！');
+						return;
+					}
+					if($('.city').text() == "请选择城市"){
+						alert('请选择城市！')
+						return;
+					}
+					if(!$('.btn_go').prop('checked')){
+						alert('请勾选同意瑞金金服协议！');
+						return;
+					}
+					else if( clicktag == "1" ){
+						alert("请勿重复提交");
+						return;
+					}
+					clicktag = 1;
+	
+					$.ajax({
+						url: '/index/Ajax/apply',
+						type: 'post',
+						data: {
+							"username": $('.username').val(),
+							"cellphone": $('.cellphone').val(),
+							"area_id": $('#value2').val(),
+							"gender":$('.sex').val(),
+						},
+		                dataType: 'json',
+		                success: function(data) {
+		                	if(data.code == 1){
+		                		window.location.href = "{:url('mobile/Index/apply')}"
+		                	}else{
+								alert(data.msg);
+								return;
+		                	}
+		                },
+						complete:function(){
+							setTimeout(function(){
+								clicktag = 0;
+							},2000)
+						}
+		            })
+				});
+			})
+		</script>
+	</body>
+</html>

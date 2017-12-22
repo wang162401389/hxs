@@ -1,0 +1,80 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 100px;">标题</th>
+            <th>内容</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>贷款类型</td>
+            <td>{$row.type}</td>
+        </tr>
+        <tr>
+            <td>标题</td>
+            <td>{$row.title}</td>
+        </tr>
+        <tr>
+            <td>额度</td>
+            <td>{$row.limit}</td>
+        </tr>
+        <tr>
+            <td>额度范围</td>
+            <td>{$row.limit_range}</td>
+        </tr>
+        <tr>
+            <td>贷款利息</td>
+            <td>{$row.interest}</td>
+        </tr>
+        <tr>
+            <td>放款时间</td>
+            <td>{$row.loan_time}</td>
+        </tr>
+        <tr>
+            <td>贷款期限</td>
+            <td>{$row.deadline}</td>
+        </tr>
+        <tr>
+            <td>贷款期限范围</td>
+            <td>{$row.deadline_range}</td>
+        </tr>
+        <tr>
+            <td>还款方式</td>
+            <td>{$row.repayment_type}</td>
+        </tr>
+        <tr>
+            <td>职业类型</td>
+            <td>{$row.profession}</td>
+        </tr>
+        <tr>
+            <td>状态</td>
+            <td>{$row.status}</td>
+        </tr>
+        <tr>
+            <td>图片</td>
+            <td><a href="{$row.picurl}" target="_blank"><img style="width:200px;high:200px" src="{$row.picurl}"></a></td>
+        </tr>
+        <tr>
+            <td>产品介绍</td>
+            <td>{$row.introduce}</td>
+        </tr>
+        <tr>
+            <td>成功申请数</td>
+            <td>{$row.success_apply_count}</td>
+        </tr>
+        <tr>
+            <td>创建时间</td>
+            <td>{$row.create_time_text}</td>
+        </tr>
+        <tr>
+            <td>发布时间</td>
+            <td>{$row.publish_time_text}</td>
+        </tr>
+    </tbody>
+</table>
+<div class="hide layer-footer">
+    <label class="control-label col-xs-12 col-sm-2"></label>
+    <div class="col-xs-12 col-sm-8">
+        <button type="reset" class="btn btn-primary btn-embossed btn-close" onclick="Layer.closeAll();">{:__('Close')}</button>
+    </div>
+</div>

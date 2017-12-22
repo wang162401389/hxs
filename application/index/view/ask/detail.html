@@ -1,0 +1,32 @@
+{extend name="layout/default" /}
+{block name="title"}贷款问答{/block}
+{block name="content"}
+	<!--贷款问答详情-->
+	<div class="wrapper" style="overflow: hidden;">
+		<div class="current_location">
+			您当前的位置：<a href="/">首页</a>&nbsp;&gt;&nbsp;贷款问答<!-- &nbsp;&gt;&nbsp;<span class="current">按揭贷款 </span>-->
+		</div>
+		<div class="house_con ask_con askdetail_con">			
+            <div class="condition_left askdetail_left fl">
+            	<h3><i></i>{$row.title}</h3>
+            	<p class="asker">
+            		<span>提问者：{$row.author}</span>
+            		<span style="margin-left: 68px;">提问时间：{$row.create_time|date="Y-m-d H:i:s",###}</span>
+            	</p>
+            	{notempty name="replylist"}
+	            	{volist name="replylist" id="v"}
+		            	<div class="anwser_item">
+			            	<p class="ask_txt">{$v.content}</p>
+			            	<p class="ask_info">
+			            		<span><i class="icon"></i>本回答由<i class="color">{$v.author}</i>回答</span>
+			            		<!-- <span>城市：广州</span> -->
+			            		<span style="margin-left: 68px;">回答时间：{$v.create_time|date="Y-m-d H:i:s",###}</span>
+			            	</p>
+		            	</div>
+	            	{/volist}
+            	{/notempty}
+			</div>
+            {include file="common/right" /} 
+		</div>
+	</div>
+{/block}

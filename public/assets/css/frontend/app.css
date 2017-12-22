@@ -1,0 +1,109 @@
+*{margin: 0;padding: 0;}
+body{background-color: #f4f4f4;margin:0;color: #323232;}
+ul,li,p{list-style: none;}
+a{text-decoration: none;}
+.dis-none{display: none;}
+.bold{font-weight: bold;}
+i{font-style: normal;}
+.red{color: #f9322e;}
+.title{text-align: center;position: relative;    background-color: #fff;
+    line-height: 50px;font-size: 1.2rem;
+    border-bottom: 1px solid #ccc;
+    font-weight: bold;}
+.title i{    display: block;
+    border-top: 2px solid #323232;
+    border-right: 2px solid #323232;
+    height: 10px;
+    width: 10px;
+    transform: rotate(-135deg);
+    position: absolute;
+    left: 16px;
+    top: 19px;}
+.title span{}
+
+/*首页*/
+.banner, .banner img{width: 100%;display: block;}
+.information{margin: 1rem 0;}
+.fast_apply{}
+/*.information img , .fast_apply img{display: block; width: 100%;}*/
+.swiper-pagination-bullet{    display: inline-block;
+    margin-right: 5px;
+    width: 30px;
+    height: 3px;
+    text-align: center;
+    background: #fff;
+    cursor: pointer;
+    opacity: 0.5;
+    border-radius: 0px;}
+.swiper-pagination-bullet-active{opacity: 1; background-color: #fff;}
+
+.apply_tit{       background: #fff;
+    margin: 10px 0;
+    font-size: 16px;
+    color: #f9322e;}
+.apply_tit img{  padding: 0 10px;  width: 30px;}
+.apply_tit span{    line-height: 45px;}
+
+/*公司简介*/
+.content{margin: 2rem 1rem;
+    line-height: 2rem;}
+
+/*form表单*/
+.apply_form{}
+.apply_form form{background-color: #fff;margin: 0 0 2.5rem;}
+.apply_form .item{overflow: hidden;padding: 2% 4%;position: relative;}
+.apply_form .item:after {
+    border-bottom: 1px solid #ccc;
+    content: " ";
+    position: absolute;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    -webkit-transform: scaleY(0.5);
+    transform: scaleY(0.5);
+}
+.apply_form .item label{float: left;display: block; width: 20%;     text-align: left;   line-height: 2.5rem;}
+.apply_form .item input, .apply_form .item select,.span_input{float: left;width: 70%;margin-left: 8%;    line-height: 2.5rem;
+    border: none;    height: 2.5rem;    background-color: #fff;    font-size: 1rem;
+-webkit-appearance:none;
+    outline: none;}
+ .apply_form .item i  {    display: block;
+    border-top: 2px solid #ccc;
+    border-right: 2px solid #ccc;
+    height: 10px;
+    width: 10px;
+    transform: rotate(45deg);
+    position: absolute;
+    right: 1rem;
+    top: 1.5rem;}
+.apply_form .agree{    overflow: hidden;
+    margin: 2rem auto;
+    color: #666666;
+    text-align: center;
+    width: 84%;}
+.apply_form .agree input{  margin-left: .2rem;  float: left;
+    margin-top: .25rem;
+    margin-right: .2rem;}
+.apply_form .agree span{float: left;}
+.apply_form .apply{border-radius: 8px;display: block; width: 85%;margin: 0 auto;color: #fff;font-size: 1.2rem; text-align: center;background-color: #dc3335;line-height: 3rem;margin-bottom: 2rem;}
+.success{margin-top: 5rem;text-align: center;}
+.success span{display: block;font-size: 1rem;line-height: 1.5rem;}
+.success img{width: 20%;}
+.success .text{font-size: 1.2rem;margin: 1rem 0 2rem;}
+.success .text .span1{font-size: 1.5rem;display: block;text-align: center;margin-bottom: 1.2rem;color: #dc3335;}
+.success .text .span2,.success .text .span4{ color: #666;}
+.success .text .span3{margin-bottom: 1rem;}
+.success .text .span4{    margin-bottom: 2rem;}
+.success .goback{display: block; border-radius: 25px;width: 70%;margin: 0 auto;color: #fff;font-size: 1.2rem; text-align: center;background-color: #dc3335;line-height: 3rem;}
+
+/*城市选择*/
+.district{display: none;}
+.area_roll > div:last-child{display: none;}
+.apply_form .item .city_picker_select{float: left;overflow: hidden;    width: 74%;}
+.apply_form .item .city_picker_select select{float: left;width: 45%;margin-left: 10%;}
+
+@media screen and (min-width:320px){html{font-size:12px;}}
+@media screen and (min-width:360px){html{font-size:14px;}}
+@media screen and (min-width:414px){html{font-size:16px;}}
+@media screen and (min-width:640px){html{font-size:24px;}}
+@media screen and (min-width:720px){html{font-size:26px;}}

@@ -1,0 +1,22 @@
+<div class="hd">
+	<ul>
+		{notempty name="ad_info.value"}
+			{volist name="ad_info.value" id="v"}
+				<li></li>
+			{/volist}
+		{/notempty}
+	</ul>
+</div>
+<div class="bd">
+	<ul>
+		{notempty name="ad_info.value"}
+			{volist name="ad_info.value" id="v"}
+				{notempty name="v.url"}
+					<li><a href="{$v.url}" target="_blank"><img src="{$v.pic}"></a></li>
+      			{else/}
+      				<li><img src="{$v.pic}"/></li>
+      			{/notempty}
+			{/volist}
+		{/notempty}	
+	</ul>
+</div>

@@ -1,0 +1,209 @@
+<div class="alldiv">
+    <div class="box">             
+        <span class="close_btn js_close"></span>
+        <p class="name">20秒快速提交申请</p>
+        <div class="box_form">
+        	<div class="step_1">
+	        	<img src="__CDN__/assets/img/frontend/step1.png" class="step_img"/>
+	        	<div class="form step_right">
+	        		<div class="item">
+                        <input type="text" class="username" placeholder="请填写您的姓名"/>
+                    </div>
+                    <div class="item">
+                        <input type="text" class="cellphone" maxlength="11" placeholder="请填写您的手机号码"/>
+                    </div>
+                    <div class="item">
+                    	<select class="gender">
+                        	<option value="1">男</option>
+                        	<option value="0">女</option>
+                        </select>
+                    </div>
+                    <div class="item">
+                    	<div id="city_china_free" class="city-picker-select">
+							<select class="province" name="province" data-url="/index/Ajax/area"></select>
+							<select class="city" name="city" data-url="/index/Ajax/area"></select>
+							<select class="area district" name="area" data-url="/index/Ajax/area"></select>
+						</div>
+                    </div>
+                    <div class="item">
+                        <input type="checkbox" class="btn_go accept" checked="">
+                        <p class="agree">本人已阅读并同意<a class="text_in js_agreen" href="javascript:void(0)">《瑞金金服服务协议》</a></p>
+                    </div>
+                    <div class="item">
+                    	<a href="javascript:" class="submit_btn next_btn js_next">下一步</a>
+                    </div>
+	        	</div>
+        	</div>
+        	<div class="step_2">
+	        	<img src="__CDN__/assets/img/frontend/step2.png" class="step_img"/>
+	        	<div class="form step_right">
+	        		<div class="item">
+                        <input type="text" class="borrow_money" placeholder="请填写借款金额"/>
+                        <i>万元</i>
+                    </div>
+                    <div class="item">
+                        <input type="text" class="age" placeholder="请填写您的年龄"/>
+                        <i>岁</i>
+                    </div>
+                    <div class="item">
+                    	<select class="has_house">
+                    		<option value>请选择有无房产</option>
+                        	<option value="1">有</option>
+                        	<option value="0">无</option>
+                        </select>
+                    </div>
+                    <div class="item">
+                        <select class="has_car">
+                    		<option value>请选择有无车</option>
+                        	<option value="1">有</option>
+                        	<option value="0">无</option>
+                        </select>
+                    </div>
+                    <div class="item">
+                        <select class="profession">
+                    		<option value>请选择职业状况</option>
+                        	<option value="3">无固定职业</option>
+                        	<option value="2">生意人</option>
+                        	<option value="1">上班族</option>
+                        </select>
+                    </div>
+                    <div class="item">
+                    	<a href="javascript:" class="submit_btn next_btn js_complete">申请完成</a>
+                    </div>
+	        	</div>
+        	</div>
+        	<div class="step_3">
+        		<img  src="__CDN__/assets/img/frontend/red_ok.png"/>
+        		<p class="p_big">申请成功</p>
+        		<p class="p_small">若条件符合，贷款顾问将在工作时间2小时内与您联系，请保持电话通畅。</p>
+        	</div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		$('#city_china_free').cxSelect({
+		    selects: ['province', 'city', 'area'],
+		    jsonSpace:'data',
+		    jsonValue:'value',
+		    jsonName: 'name'
+		});
+		
+		$('.js_box').click(function(){console.log($('.loan_id').val());
+            $('.alldiv').show();
+            $('.box').show();
+        });
+        layui.use('layer', function(){
+        	var layer = layui.layer;
+			$('.js_next').click(function(){
+				
+				var nameval = $('.step_right .username').val();
+				//var nameres = /^[\u4E00-\u9FA5]{1,5}$/.test(nameval);
+				if(!nameval){
+					layer.tips('请填写正确的姓名格式！', '.step_right .username', {
+                            tips: [2, '#dd2727']
+                    })
+					return;
+				}
+				
+				var val = $.trim($('.step_right .cellphone').val());
+				var res =  /^0?1[0-9]\d{9}$/.test(val);
+				//var res /^(0|86|17951)?(13[0-9]|15[012356789]|17[0678]|18[0-9]|14[57])[0-9]{8}$/;
+				if(!res){
+					layer.tips('请填写正确的手机号！', '.step_right .cellphone', {
+                            tips: [2, '#dd2727']
+                   })
+					return;
+				}
+				if(!$('.step_right .city').val()){
+					layer.tips('请选择城市！', '.step_right .city', {
+                            tips: [2, '#dd2727']
+                  })
+					return;
+				}
+				if(!$('.step_right .btn_go').prop('checked')){
+					layer.tips('请勾选同意瑞金金服协议！', '.step_right .btn_go', {
+                        tips: [2, '#dd2727']
+                    })
+					return;
+				}
+				$('.step_1').hide();
+				$('.step_2').show();
+				//console.log($('.step_right .city').val());
+			});
+			$('.js_complete').click(function(){
+				
+				if(!$('.step_right .borrow_money').val()){
+					layer.tips('请填写正确借款金额！', '.step_right .borrow_money', {
+                            tips: [2, '#dd2727']
+                    })
+					return;
+				}
+				if(!$('.step_right .age').val()){
+					layer.tips('请填写年龄！', '.step_right .age', {
+                            tips: [2, '#dd2727']
+                    })
+					return;
+				}
+				if(!$('.step_right .has_house').val()){
+					layer.tips('请选择房产！', '.step_right .has_house', {
+                            tips: [2, '#dd2727']
+                    })
+					return;
+				}
+				if(!$('.step_right .has_car').val()){
+					layer.tips('请选择有无车辆！', '.step_right .has_car', {
+                            tips: [2, '#dd2727']
+                    })
+					return;
+				}
+				if(!$('.step_right .profession').val()){
+					layer.tips('请选择您的职业！', '.step_right .profession', {
+                            tips: [2, '#dd2727']
+                    })
+					return;
+				}
+				//提交申请
+				$.ajax({
+					url: '/index/Ajax/apply',
+					type: 'post',
+					data: {
+						"username": $('.step_right .username').val(),
+						"cellphone": $('.step_right .cellphone').val(),
+						"gender": $('.gender').val(),
+						"area_id": $('.step_right .city').val(),
+						"borrow_money": $('.borrow_money').val(),
+						"age": $('.age').val(),
+						"has_house": $('.has_house').val(),
+						"has_car": $('.has_car').val(),
+						"profession": $('.profession').val(),
+						"loan_id" : $('.loan_id').val()
+					},
+	                dataType: 'json',
+	                success: function(data) {
+	                	if(data.code == 1){
+	                		$('.step_2').hide();
+	                        $('.step_3').show();
+	                	}else{
+	                		alert(data.msg);
+	                		window.reload();
+	                	}
+	                }
+	            })
+			});
+		})
+		
+		/*
+        **弹窗
+        */
+        $('.js_close').click(function(){
+            $('.alldiv').hide();
+            $('.box').hide();
+            $('.step_1').show();
+			$('.step_2').hide();
+			$('.step_3').hide();
+        });
+        
+	})
+</script>

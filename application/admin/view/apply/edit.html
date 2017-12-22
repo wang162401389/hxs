@@ -1,0 +1,57 @@
+<form id="edit-form" class="form-horizontal" role="form" data-toggle="validator" method="POST" action="">
+	<table class="table table-striped">
+		<tr>
+		    <td>姓名：</td>
+		    <td>{$row.username}</td>
+		    <td>电话号码：</td>
+		    <td>{$row.cellphone}</td>
+		</tr>
+		<tr>
+		    <td>性别：</td>
+		    <td>{$row.gender}</td>
+		    <td>地区：</td>
+		    <td>{$row.area_id}</td>
+		</tr>
+		<tr>
+		    <td>借款金额：</td>
+		    <td>{$row.borrow_money}</td>
+		    <td>年龄：</td>
+		    <td>{$row.age}</td>
+		</tr>
+		<tr>
+		    <td>是否有房：</td>
+		    <td>{$row.has_house}</td>
+		    <td>是否有车：</td>
+		    <td>{$row.has_car}</td>
+		</tr>
+		<tr>
+		    <td>职业状况：</td>
+		    <td>{$row.profession}</td>
+		    <td></td>
+		    <td></td>
+		</tr>
+		<tr>
+		    <td>状态：</td>
+		    <td colspan="3">
+		    	{if condition="($row.status_val > 0)"} 
+					{$row.status}
+				{else /}
+					{:build_radios('row[status]', ['潜在客户', '不成交客户', '已成交客户'], $row['status_val'])}
+				{/if}
+		    </td>
+		</tr>
+		<tr>
+		    <td>备注：</td>
+		    <td colspan="3">
+		    	<textarea name="row[content]" data-rule="required" id="c-editor" cols="80" rows="5"></textarea>
+		    </td>
+		</tr>
+	</table>
+	<div class="form-group layer-footer">
+	    <label class="control-label col-xs-12 col-sm-2"></label>
+	    <div class="col-xs-12 col-sm-8">
+	        <button type="submit" class="btn btn-success btn-embossed disabled">{:__('OK')}</button>
+	        <button type="reset" class="btn btn-default btn-embossed">{:__('Reset')}</button>
+	    </div>
+	</div>
+</form>

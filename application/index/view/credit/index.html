@@ -1,0 +1,321 @@
+{extend name="layout/default" /}
+{block name="title"}信用贷{/block}
+{block name="content"}
+	{js href="__CDN__/assets/js/frontend/jquery.z-pager4.js" /}    	
+    <!--信用贷-->
+	<div class="wrapper">
+    	<div class="current_location">
+			您当前的位置：<a href="/">首页</a>&nbsp;&gt;&nbsp;<span class="current">信贷产品</span>
+		</div>
+		
+		<div class="condition_con">
+			<div class="media condition_left fl" style="background-color: transparent;">
+				<div class="selecte_area">
+					<div class="item clearfix selected_list_item">
+						<span class="condition_name">已选择：</span>
+						<div class="selected_list">
+                            
+						</div>
+					</div>
+					<div class="item clearfix">
+						<span class="condition_name" data-name="limit">贷款金额：</span>
+						<!--<div class="unlimited">
+							<a href="javascript:0" class="active" data-id = "">不限</a>
+						</div>-->
+						<div class="condition_list">
+							<a href="javascript:viod(0)" class="active" data-id = "">不限</a>
+							{volist name="Think.config.site.limit_type" id="vo"}
+                            	<a href="javascript:viod(0)"  data-id={$key}>{$vo}</a>
+                            {/volist}
+						</div>
+					</div>
+					<div class="item clearfix">
+						<span class="condition_name" data-name="deadline">贷款期限：</span>
+						<!--<div class="unlimited"><a href="javascript:0" class="active">不限</a></div>-->
+						<div class="condition_list">
+							<a href="javascript:viod(0)" class="active" data-id = "">不限</a>
+							{volist name="Think.config.site.deadline_type" id="vo"}
+                            	<a href="javascript:viod(0)"  data-id={$key}>{$vo}</a>
+                            {/volist}
+						</div>
+					</div>
+					<div class="item clearfix">
+						<span class="condition_name" data-name="type">贷款类型：</span>
+						<!--<div class="unlimited"><a href="javascript:0" class="active">不限</a></div>-->
+						<div class="condition_list">
+							<a href="javascript:viod(0)" class="active" data-id = "">不限</a>
+							{volist name="type_list" id="vo"}
+                            	<a href="javascript:viod(0)"  data-id={$key}>{$vo}</a>
+                            {/volist}
+						</div>
+					</div>
+					<div class="item clearfix">
+						<span class="condition_name" data-name="profession">职业身份：</span>
+						<!--<div class="unlimited"><a href="" class="active">不限</a></div>-->
+						<div class="condition_list">
+							<a href="javascript:viod(0)" class="active" data-id = "">不限</a>
+							{volist name="Think.config.site.profession" id="vo"}
+                            	<a href="javascript:viod(0)"  data-id={$key}>{$vo}</a>
+                            {/volist}
+						</div>
+					</div>
+				</div>
+	            <div style="background-color: #fff;padding-bottom: 50px;position: relative;">
+					<ul class="loan_sort">
+		                <li class="active" data-name = "">默认排行</li>
+		                <li data-name = "limit_order">贷款额度</li>
+		                <li data-name = "deadline_order">可贷周期</li>
+		            </ul>
+		            <div class="tab_box">
+			            <div class="par_list media1"></div>
+		            </div>
+	        	</div>
+	        	<div id="pager" class="pagination"></div>
+	        </div>
+            {include file="common/right" /}
+		</div>
+	</div>
+<div style="clear: both;"></div>
+
+<script type="text/javascript">
+	$(function(){
+		var str = location.href;
+		var num = str.indexOf("?");
+		str = str.substr(num+1);
+		var arr = str.split('&');
+		var obj = {};
+		for(var i=0; i<arr.length; i++){
+			num = arr[i].indexOf("=");
+			if(num > 0){
+				var name = arr[i].substring(0,num),
+					value = arr[i].substr(num+1);
+				obj[name] = value;
+			}
+		}
+
+		/*判断搜索 添加筛选器*/
+		var jobid_id = "",
+			loanmoney_id = "",
+			loanterm_id = "";
+			
+		if(str.indexOf("&") == "-1")
+		{
+			$('.selected_list').empty();
+			//$('.selected_list').hide();
+		}else{
+			var jobid = decodeURI(obj['jobid']) || '';
+			var loanmoney = decodeURI(obj['loanmoney']) || '';
+			var loanterm = decodeURI(obj['loanterm']) || '';
+			console.log(jobid);
+			
+			if(jobid == "不限" && loanmoney == "不限"  && loanterm == "不限" ){
+				$('.selected_list_item').hide();
+			}else{
+				$('.selected_list_item').show();
+				var html1 = "",
+					html2 = "",
+					html3 = "";
+				$('.condition_list a').each(function(){
+					if($(this).text() == jobid && jobid != "不限"){
+						$(this).addClass('active');
+						$(this).siblings().removeClass('active');
+						jobid_id = $(this).data('id');
+						html3 = '<a href="javascript:viod(0)" class="profession"> <span class="stxt" data-name="profession">职业身份：</span><span data-id="'+ jobid_id +'" class="sval red">'+ jobid +'</span> <i class="close_i">×</i></a>';
+					}
+					if($(this).text() == loanmoney && loanterm != "不限"){
+						$(this).addClass('active');
+						$(this).siblings().removeClass('active');
+						loanmoney_id = $(this).data('id');
+						html1 = '<a href="javascript:viod(0)" class="limit"> <span class="stxt" data-name="limit">贷款金额：</span><span data-id="'+ loanmoney_id +'" class="sval red">'+ loanmoney +'</span> <i class="close_i">×</i></a>';
+					}
+					if($(this).text() == loanterm && loanterm != "不限"){
+						$(this).addClass('active');
+						$(this).siblings().removeClass('active');
+						loanterm_id = $(this).data('id');
+						html2 = '<a href="javascript:viod(0)" class="deadline"> <span class="stxt" data-name="deadline">贷款期限：</span><span data-id="'+ loanterm_id +'" class="sval red">'+ loanterm +'</span> <i class="close_i">×</i></a>';
+					}
+				})
+				$('.selected_list').append(html1+html2+html3);
+			}
+		}
+
+		/*tab切换*/
+    	$('.loan_sort li').click(function(){
+    		var index = $(this).index();
+    		$(this).addClass('active');
+    		$(this).siblings().removeClass('active');
+    		
+    		//条件参数
+    		var choose = {};
+    		if($('.selected_list a').length > 0){
+    			$('.selected_list a').each(function(){
+    				var name = $(this).find('.stxt').data('name'),
+    					val = $(this).find('.sval').data('id');
+    			 	    choose[name] = val;
+    			})
+    		}
+    		//默认排行
+    		if(index == 0){
+    			$('#pager').zPager({
+					btnShow: false,
+					url: 'credit',
+					htmlBox: $('.par_list'),
+					limit: choose.limit,
+					deadline: choose.deadline,
+					type: choose.type,
+					profession: choose.profession
+				});
+    		}
+    		//贷款额度
+    		if(index == 1){
+    			$('#pager').zPager({
+					btnShow: false,
+					url: 'credit',
+					htmlBox: $('.par_list'),
+					limit_order: "desc",
+					limit: choose.limit,
+					deadline: choose.deadline,
+					type: choose.type,
+					profession: choose.profession
+				});
+    		}
+    		//可贷周期
+    		if(index == 2){
+    			$('#pager').zPager({
+					btnShow: false,
+					url: 'credit',
+					htmlBox: $('.par_list'),
+					deadline_order: "desc",
+					limit: choose.limit,
+					deadline: choose.deadline,
+					type: choose.type,
+					profession: choose.profession
+				});
+    		}
+    	})
+
+
+		/*筛选器*/
+		function  filter(id,nametxt,name,valtxt){
+			if(id){
+				if($('.selected_list').find('.' + name).length > 0){
+					$('.selected_list').find('.' + name).find('.sval').text(valtxt);
+					$('.selected_list').find('.' + name).find('.sval').data('id', id);
+					//console.log($('.selected_list').find('.' + name).find('.sval').data('id'))
+				}else{
+					$('.selected_list').append('<a href="javascript:viod(0)" class="'+ name +'"> <span class="stxt" data-name="'+ name +'">'+ nametxt +'</span><span data-id="'+ id +'" class="sval red">'+ valtxt +'</span> <i class="close_i">×</i></a>');
+				}
+			}else{
+				if($('.selected_list').find('.' + name).length > 0){
+					$('.selected_list').find('.' + name).detach();
+				}else{
+					
+				}
+				if($('.selected_list a').length == 0){
+					$('.selected_list_item').hide();
+				}
+			}
+		}
+
+    	/*
+		 **条件筛选
+		*/
+		$('.condition_list a').click(function(){
+			$(this).addClass('active');
+			$(this).siblings().removeClass('active');
+//			$(this).parent().prev().find('a').removeClass('active');
+			$('.selected_list_item').show();
+			
+			var id = $(this).data('id');
+			var nametxt = $(this).parent().prevAll('.condition_name').text();
+			var name = $(this).parent().prevAll('.condition_name').data('name');
+			var valtxt = $(this).text();
+
+			filter(id,nametxt,name,valtxt);
+
+			
+			//条件参数
+			var choose = {};
+    		if($('.selected_list a').length > 0){
+    			$('.selected_list a').each(function(){
+    				var name = $(this).find('.stxt').data('name'),
+    					val = $(this).find('.sval').data('id');
+    			 	choose[name] = val;
+    			})
+    		}
+    		
+    		var tabname = $('.loan_sort li.active').data('name');
+    		$('#pager').zPager.defaults[tabname] = "desc";
+			$('#pager').zPager({
+				btnShow: false,
+				url: 'credit',
+				htmlBox: $('.par_list'),
+//				[$('.loan_sort li.active').data('name')] : 'desc',
+				limit: choose.limit,
+				deadline: choose.deadline,
+				type: choose.type,
+				profession: choose.profession
+			});
+//			if($('.selected_list a').hasClass('limit')){
+//				$('.limitdata').text($('.selected_list').find('.limit').find('.sval').text());
+//			}
+		});
+		
+		$('.selected_list').on('click', '.close_i',function(){
+			var stxt = $(this).parent().find('.stxt').data('name');
+			$('.selecte_area .condition_name').each(function(){
+				if($(this).data('name') == stxt){
+//					$(this).nextAll('.unlimited').find('a').addClass('active');
+					$(this).next().find('a').removeClass('active');
+					$(this).next().find('a').eq(0).addClass('active');
+				}
+			})
+			
+			$(this).parent().detach();
+			
+			if($('.selected_list a').length == 0){
+				$('.selected_list_item').hide();
+			}
+			
+			//条件参数
+			var choose = {};
+    		if($('.selected_list a').length > 0){
+    			$('.selected_list a').each(function(){
+    				var name = $(this).find('.stxt').data('name'),
+    					val = $(this).find('.sval').data('id');
+    			 	choose[name] = val;
+    			})
+    		}
+    	
+    		var tabname = $('.loan_sort li.active').data('name');
+    		$('#pager').zPager.defaults[tabname] = "desc";
+			$('#pager').zPager({
+				btnShow: false,
+				url: 'credit',
+				htmlBox: $('.par_list'),
+//				[$('.loan_sort li.active').data('name')]  : 'desc',
+				limit: choose.limit,
+				deadline: choose.deadline,
+				type: choose.type,
+				profession: choose.profession
+			});
+		})
+		
+		/*
+		 **分页初始化
+		*/
+		$('#pager').zPager({
+			btnShow: false,
+			url: 'credit',
+			htmlBox: $('.par_list'),
+			limit: loanmoney_id || '',
+			deadline: loanterm_id || '',
+			type: '',
+			profession: jobid_id || ''
+		});
+	})
+	//console.log(obj['jobid']);
+	//console.log(obj['loanmoney']);
+	//console.log(obj['loanterm']);
+</script>
+{/block}

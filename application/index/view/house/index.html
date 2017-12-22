@@ -1,0 +1,92 @@
+{extend name="layout/default" /}
+{block name="title"}房抵贷{/block}
+{block name="content"}
+	{js href="__CDN__/assets/js/frontend/jquery.SuperSlide.2.1.1.js" /}
+	<!--房抵贷-->
+	<style>
+		.banner{height: 330px;}
+		.slideBox{height: 330px;}
+		.bd ul li img{height: 330px;}
+		.condition_right .ad{margin-top: 0;}
+	</style>
+	<div class="banner">
+        <div id="slideBox" class="slideBox">
+        	{include file="common/banner" /}
+        </div>
+	</div>
+	<div class="wrapper">
+		<div class="part part1 house_con">			
+            <div class="condition_left fl">
+            	<div class="item_left"  style="margin-bottom: 20px;">
+                    <div class="xy_top">
+                    	房抵贷
+                    	<a href="{:url('index/House/more')}" class="more fr">+ 更多</a>
+                    </div>
+                    <ul class="loan_con">
+                        <li class="active">
+                        	{notempty name="list"}
+		                        {volist name="list" id="val"}
+		                            <div class="item clearfix"> 
+		                                <img src="{$val.picurl}">
+		                                <p>{$val.title}</p>
+		                                <div class="more_wrap">
+		                                    <a href="{:url('index/House/detail', ['id' => $val['id']])}" target="_blank" class="more">查看</a>
+		                                </div>
+		                            </div>
+                            	{/volist}
+                            {/notempty}
+                        </li>
+                    </ul>
+                </div>
+                
+                {notempty name="article_list"}
+	                <div class="item_left">
+	                    <div class="xy_top">{$mod_name}<a href="{:url('index/Strategy/lists', ['id' => $cat_id])}" class="more fr">+ 更多</a></div>
+	                    <ul class="loan_con">
+	                        <li class="active">
+	                        	<div class="strategy fl">
+	                                <div class="pic_text">
+	                                	{volist name="article_list" id="v" offset="0" length='1'}
+		                                    <a href="{:url('index/Strategy/detail', ['id' => $v['id']])}" class="img_a"><img src="{$v.thumb}"></a>
+		                                    <div class="addt">
+		                                        <span class="addtitle">
+		                                            <a href="{:url('index/Strategy/detail', ['id' => $v['id']])}" target="_blank">{$v.title}</a>
+		                                        </span><br>
+		                                        <div class="addtmain">{$v.content|mb_substr=0,120}......</div>
+		                                    </div>
+	                                    {/volist}
+	                                </div>
+	                                <div class="list">
+	                                	{volist name="article_list" id="v" offset="1" length='8'}
+		                                	<a href="{:url('index/Strategy/detail', ['id' => $v['id']])}" target="_blank"><i class="dot_icon"></i>{$v.title}</a>
+		                                {/volist}
+	                                </div>
+	                            </div>
+	                        </li>
+	                    </ul>
+	                </div>
+                {/notempty}
+			</div>
+            {include file="common/right" /}
+		</div>
+	</div>
+	<div style="clear: both;"></div>
+
+	<script type="text/javascript">
+        $(function(){
+            /*banner图轮播*/
+            $(".slideBox").slide( {
+                mainCell : ".bd ul",
+                effect : "fade",
+                autoPlay : true,
+                trigger : "mouseover",
+                easing : "swing",
+                delayTime : 1500,
+                mouseOverStop : true
+            });
+            if($(".hd ul li").length == 1){
+            	$('.hd').hide();
+            }
+        })
+    </script> 
+{/block}
